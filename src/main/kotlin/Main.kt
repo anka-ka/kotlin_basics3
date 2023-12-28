@@ -1,21 +1,26 @@
-import java.util.*
-
 fun main() {
-    val scan = Scanner(System.`in`)
     println("Введите сумму вашей покупки")
-    val amount = scan.nextLine().toInt()
-    var discount = 0
-    if (amount in 1001..10000) discount = 100; if (amount > 10001) discount = (amount * 5) / 100
+    val percentOfRegularCustomer = 1.0f / 100.0f
+    val percentForBigSum = 5.0f / 100.0f
+    val amount = readln().toInt()
+    var discount = 0.0f
+    if (amount in 1001..10000) {
+        discount = 100.0f
+    } else if (amount > 10001) {
+        discount = amount * percentForBigSum
+    }
     var regularCustomer = false
     println("Являетесь ли вы постоянным покупателем? Ответьте да или нет")
-    val input = scan.nextLine()
+    val input = readln()
     var totalDiscount = discount
     if (input.equals("да")) {
         regularCustomer = true
     }
     if (regularCustomer == true) {
-        totalDiscount = discount + (amount * 1) / 100
+        totalDiscount += ((amount - discount) * percentOfRegularCustomer)
+    } else {
+        totalDiscount = discount
     }
-    println("Ваша скидка составит $totalDiscount рублей")
+    println("Ваша скидка составит ${totalDiscount.toInt()} рублей")
 
 }
